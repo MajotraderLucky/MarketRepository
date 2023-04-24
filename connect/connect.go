@@ -30,6 +30,7 @@ func GetApi() {
 	secretKey, exexists := os.LookupEnv("BINANCE_SECRET_KEY")
 	if exexists {
 		fmt.Println("secretKey exist")
+		fmt.Println("----------------------")
 	}
 
 	futuresClient := binance.NewFuturesClient(apiKey, secretKey)
