@@ -1,10 +1,12 @@
 package connect
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
 
+	"github.com/adshao/go-binance/v2"
 	"github.com/joho/godotenv"
 )
 
@@ -29,4 +31,12 @@ func GetApi() {
 	if exexists {
 		fmt.Println("secretKey exist")
 	}
+
+	futuresClient := binance.NewFuturesClient(apiKey, secretKey)
+	res, err := futuresClient.NewDepthService().Symbol("BTCUSDT").Do(context.Background())
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(res)
 }
