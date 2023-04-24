@@ -10,10 +10,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func Hello2() {
-	fmt.Println("Hello from connect")
-}
-
 func Init() {
 	if err := godotenv.Load(); err != nil {
 		log.Print("No .env file found")
