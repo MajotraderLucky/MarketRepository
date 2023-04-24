@@ -21,6 +21,8 @@ func Init() {
 }
 
 func GetApi() {
+	tickerName := "BTCUSDT"
+
 	fmt.Println("----------------------")
 	apiKey, exists := os.LookupEnv("BINANCE_API_KEY")
 	if exists {
@@ -34,7 +36,7 @@ func GetApi() {
 	}
 
 	futuresClient := binance.NewFuturesClient(apiKey, secretKey)
-	res, err := futuresClient.NewDepthService().Symbol("BTCUSDT").Do(context.Background())
+	res, err := futuresClient.NewDepthService().Symbol(tickerName).Do(context.Background())
 	if err != nil {
 		fmt.Println(err)
 		return
