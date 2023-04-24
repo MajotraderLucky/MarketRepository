@@ -73,5 +73,6 @@ func Account() {
 			fmt.Print("proffit(%) = ", (accountNowFloat/accountStart)*100, "%")
 		}
 	}
+	fmt.Println("----------------------")
 	fmt.Println()
 }
