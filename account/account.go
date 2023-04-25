@@ -13,7 +13,8 @@ import (
 
 func Account() {
 	tickerName := "BTCUSDT"
-	fmt.Println(tickerName, "- bot")
+	fmt.Println("----------------------")
+	fmt.Println("     ", tickerName, "- bot")
 
 	fmt.Println("----------------------")
 	apiKey, exists := os.LookupEnv("BINANCE_API_KEY")
