@@ -75,8 +75,8 @@ func Account() {
 			fmt.Print("proffit(%) = ", (accountNowFloat/accountStart)*100, "%")
 		}
 	}
-	fmt.Println("----------------------")
 	fmt.Println()
+	fmt.Println("----------------------")
 
 	accServ, err := futuresClient.NewGetAccountService().Do(context.Background())
 	if err != nil {
