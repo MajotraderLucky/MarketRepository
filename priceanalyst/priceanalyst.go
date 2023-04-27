@@ -167,4 +167,13 @@ func FiboLongBtc() {
 
 	priceAbove236 := (askPriceFloat > longFib236) && (askPriceFloat < max)
 	fmt.Println("Price above 236 fibo =", priceAbove236)
+	priceAbove382 := (askPriceFloat > longFib382) && (askPriceFloat < longFib236)
+	fmt.Println("Price above 382 fibo =", priceAbove382)
+	priceAbove500 := (askPriceFloat > longFib500) && (askPriceFloat < longFib382)
+	fmt.Println("Price above 500 fibo =", priceAbove500)
+	priceAbove618 := (askPriceFloat > longFib786) && (askPriceFloat < longFib618)
+	fmt.Println("Price above 618 fibo =", priceAbove618)
+	priceAbove786 := (askPriceFloat > longFib786) && (askPriceFloat < longFib618)
+	fmt.Println("Price above 786 fibo =", priceAbove786)
+	fmt.Println("----------------------")
 }
