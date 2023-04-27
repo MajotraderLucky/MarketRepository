@@ -138,4 +138,5 @@ func FiboLongBtc() {
 	}
 
 	fmt.Println("Lowest price    =", min)
+	fmt.Println("----------------------")
 }
