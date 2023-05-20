@@ -1,6 +1,8 @@
 package dataprocessing
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func TestHello() {
 	fmt.Println("Hello dataprocessing!")
