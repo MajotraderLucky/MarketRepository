@@ -63,7 +63,7 @@ func Account() {
 	json.Unmarshal(accVar, &account)
 	fmt.Println("----------------------")
 
-	accountStart := 18.149229049682617 + 7.53667852 + 11.86
+	accountStart := 18.149229049682617 + 7.53667852 + 11.86 + 11.97
 	accountNowString := account.AvailableBalance
 	if accountNowFloat, err := strconv.ParseFloat(accountNowString, 32); err == nil {
 		fmt.Println(accountStart, "- start")
