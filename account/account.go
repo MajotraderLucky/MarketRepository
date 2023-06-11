@@ -69,11 +69,12 @@ func Account() {
 	if accountNowFloat, err := strconv.ParseFloat(accountNowString, 32); err == nil {
 		fmt.Println(accountStart, "- start")
 		fmt.Println(accountNowFloat, "- now")
-		fmt.Print("proffit($) = ", accountNowFloat-accountStart, "$", "\n")
+		proffit := accountNowFloat - accountStart
+		fmt.Print("proffit($) = ", proffit, "$", "\n")
 		if accountNowFloat < accountStart {
-			fmt.Print("proffit(%) = -", (accountNowFloat/accountStart)*100, "%")
+			fmt.Print("proffit(%) = -", (proffit/accountStart)*100, "%")
 		} else {
-			fmt.Print("proffit(%) = ", (accountNowFloat/accountStart)*100, "%")
+			fmt.Print("proffit(%) = ", (proffit/accountNowFloat)*100, "%")
 		}
 	}
 	fmt.Println()
