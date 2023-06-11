@@ -72,7 +72,7 @@ func Account() {
 		proffit := accountNowFloat - accountStart
 		fmt.Print("proffit($) = ", proffit, "$", "\n")
 		if accountNowFloat < accountStart {
-			fmt.Print("proffit(%) = -", (proffit/accountStart)*100, "%")
+			fmt.Print("proffit(%) = ", (proffit/accountStart)*100, "%")
 		} else {
 			fmt.Print("proffit(%) = ", (proffit/accountNowFloat)*100, "%")
 		}
