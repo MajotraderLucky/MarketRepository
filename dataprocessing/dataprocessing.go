@@ -27,7 +27,7 @@ func MillisecondsToTime(milliseconds int64) time.Time {
 	return time.Unix(0, milliseconds*int64(time.Millisecond))
 }
 
-func main() {
+func DataGenerator() {
 	fmt.Println("----------------------")
 	apiKey, exists := os.LookupEnv("BINANCE_API_KEY")
 	if exists {
