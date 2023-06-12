@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/adshao/go-binance/v2"
+	"github.com/joho/godotenv"
 )
 
 func TestHello() {
