@@ -7,6 +7,8 @@ import (
 	"log"
 	"os"
 	"time"
+
+	"github.com/adshao/go-binance/v2"
 )
 
 func TestHello() {
