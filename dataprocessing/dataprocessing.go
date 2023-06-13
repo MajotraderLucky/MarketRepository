@@ -112,5 +112,5 @@ func DataGenerator(ch chan string) {
 
 func SetTestVarString(ch chan string) {
 	setString := <-ch // получаем значение из канала
-	fmt.Println(setString)
+	fmt.Println("Input chan for the var setString", setString)
 }
