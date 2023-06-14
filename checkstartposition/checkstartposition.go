@@ -2,6 +2,6 @@ package checkstartposition
 
 import "fmt"
 
-func checkstartposition() {
+func Checkstartposition() {
 	fmt.Println("Hello checkstartposition!")
 }
