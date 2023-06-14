@@ -99,7 +99,7 @@ func Checkstartposition() {
 	if s, err := strconv.ParseFloat(startLowString, 32); err == nil {
 		startLowFloat = s
 	}
-	fmt.Println("Start kline low =", startLowFloat)
+	// fmt.Println("Start kline low =", startLowFloat)
 
 	var nextLowFloat float64
 	var lowSliceFloat64 []float64
@@ -120,7 +120,7 @@ func Checkstartposition() {
 		}
 	}
 
-	fmt.Println("Lowest price    =", min)
+	// fmt.Println("Lowest price    =", min)
 
 	var nextHighFloat float64
 	var highSliceFloat64 []float64
