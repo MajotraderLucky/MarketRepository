@@ -136,5 +136,5 @@ func Checkstartposition() {
 	priceCorridor := max - min
 	priceCorridorPercent := ((priceCorridor) / max) * 100
 	priceCorridorCondition := priceCorridorPercent > 10
-	fmt.Println("Price corridor condition -", priceCorridorCondition, reflect.TypeOf(priceCorridorCondition))
+	fmt.Println("Price corridor condition -", priceCorridorCondition, reflect.TypeOf(priceCorridorPercent))
 }
