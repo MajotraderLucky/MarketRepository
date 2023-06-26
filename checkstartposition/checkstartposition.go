@@ -139,4 +139,5 @@ func Checkstartposition() {
 	fmt.Println(max, "-", min, "=", priceCorridor)
 	fmt.Print(priceCorridor, "/", max, " = ", priceCorridor/max, priceCorridorPercent, "%")
 	fmt.Println()
+	fmt.Println("Alternative calculation corridor percent -", ((max-min)/max)*100)
 }
