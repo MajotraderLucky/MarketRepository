@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"reflect"
 	"strconv"
 	"time"
 
@@ -136,6 +135,7 @@ func Checkstartposition() {
 	priceCorridor := max - min
 	priceCorridorPercent := (priceCorridor / max) * 100
 	priceCorridorCondition := priceCorridorPercent > 7
-	fmt.Print("Price corridor condition - ", priceCorridorCondition, " - ", priceCorridorPercent, "%", reflect.TypeOf(priceCorridorPercent))
+	priceCorridorPercentRound := fmt.Sprintf("%.2f", priceCorridorPercent)
+	fmt.Print("Price corridor condition - ", priceCorridorCondition, " - ", priceCorridorPercentRound, "%")
 	fmt.Println()
 }
