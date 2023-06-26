@@ -137,6 +137,6 @@ func Checkstartposition() {
 	priceCorridorCondition := priceCorridorPercent > 10
 	fmt.Println("Price corridor condition -", priceCorridorCondition, priceCorridorPercent)
 	fmt.Println(max, "-", min, "=", priceCorridor)
-	fmt.Print(priceCorridor, "/", max, "=", priceCorridor/max, priceCorridorPercent, "%")
+	fmt.Print(priceCorridor, "/", max, " = ", priceCorridor/max, priceCorridorPercent, "%")
 	fmt.Println()
 }
