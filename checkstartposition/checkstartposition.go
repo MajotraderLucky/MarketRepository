@@ -226,7 +226,7 @@ func Checkstartposition() {
 		fmt.Println("Conversion error:", err)
 		return
 	}
-	fmt.Printf("%v", positionFloat)
+	fmt.Printf("%v", positionFloat, reflect.TypeOf(positionFloat))
 	fmt.Println()
 	fmt.Println("----------------------")
 }
