@@ -229,4 +229,7 @@ func Checkstartposition() {
 	fmt.Printf("%v", positionFloat, reflect.TypeOf(positionFloat))
 	fmt.Println()
 	fmt.Println("----------------------")
+
+	posFloat := fmt.Sprintf("%f", positionFloat)
+	fmt.Println("Var posFloat =", posFloat, "type -", reflect.TypeOf(posFloat))
 }
