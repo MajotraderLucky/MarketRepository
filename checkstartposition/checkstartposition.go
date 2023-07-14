@@ -25,7 +25,7 @@ func MillisecondsToTime(milliseconds int64) time.Time {
 	return time.Unix(0, milliseconds*int64(time.Millisecond))
 }
 
-func Checkstartposition() {
+func Checkstartposition(ch chan bool) {
 	fmt.Println("-------------------------")
 	fmt.Println("Hello checkstartposition!")
 	fmt.Println("-------------------------")
@@ -231,4 +231,10 @@ func Checkstartposition() {
 
 	startPosition := priceCorridorCondition && conditionNoPositions
 	fmt.Println("Start position condition -", startPosition)
+	ch <- startPosition
+}
+
+func SetCheckStartPosition(ch chan bool) {
+	setStartPosition := <-ch
+	fmt.Println("Input chan for the var setStartPosition", setStartPosition)
 }
