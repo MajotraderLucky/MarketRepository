@@ -228,4 +228,7 @@ func Checkstartposition() {
 
 	conditionNoPositions := positionFloat == 0
 	fmt.Println("No open positions -", conditionNoPositions)
+
+	startPosition := priceCorridorCondition && conditionNoPositions
+	fmt.Println("Start position condition -", startPosition)
 }
