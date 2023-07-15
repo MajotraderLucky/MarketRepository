@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"reflect"
 	"strconv"
 
 	"github.com/adshao/go-binance/v2"
@@ -142,7 +143,7 @@ func Priceingrid() {
 	fmt.Println("----------------------")
 
 	longFib382 := max - ((max - min) * 0.382)
-	fmt.Println("long Fibo 382 =", longFib382)
+	fmt.Println("long Fibo 382 =", longFib382, reflect.TypeOf(longFib382))
 	longFib786 := max - ((max - min) * 0.786)
-	fmt.Println("long Fibo 786 =", longFib786)
+	fmt.Println("long Fibo 786 =", longFib786, reflect.TypeOf(longFib786))
 }
