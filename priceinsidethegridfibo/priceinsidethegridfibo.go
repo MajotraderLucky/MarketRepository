@@ -152,4 +152,7 @@ func Priceingrid() {
 		fmt.Println(err)
 	}
 	fmt.Println("Variable askPriceFloat -", askPriceFloat, reflect.TypeOf(askPriceFloat))
+
+	priceBetween382and786 := askPriceFloat < longFib382 && askPriceFloat > longFib786
+	fmt.Println("Condition price between fibo 382 and 786 -", priceBetween382and786)
 }
