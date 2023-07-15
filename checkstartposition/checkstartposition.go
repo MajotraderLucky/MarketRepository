@@ -230,7 +230,7 @@ func Checkstartposition(chBool chan bool) {
 	fmt.Println("No open positions -", conditionNoPositions)
 
 	startPosition := priceCorridorCondition && conditionNoPositions
-	fmt.Println("Start position condition -", startPosition)
+	// fmt.Println("Start position condition -", startPosition)
 	chBool <- startPosition
 }
 
