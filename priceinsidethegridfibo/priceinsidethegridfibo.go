@@ -18,7 +18,7 @@ func Hello() {
 func Priceingrid() {
 	fmt.Println("-----------------------------------------")
 	tickerName := "BTCUSDT"
-	fmt.Println(tickerName, "- fibo long info")
+	fmt.Println(tickerName, "- ticker")
 
 	fmt.Println("----------------------")
 	apiKey, exists := os.LookupEnv("BINANCE_API_KEY")
