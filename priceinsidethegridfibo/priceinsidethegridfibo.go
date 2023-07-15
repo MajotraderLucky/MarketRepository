@@ -12,7 +12,7 @@ import (
 
 func Hello() {
 	fmt.Println("-----------------------------------------")
-	fmt.Println("Hello from package priceinsidethegridfibo")
+	fmt.Println("Hello from package priceinsidethegridfibo!")
 }
 
 func Priceingrid() {
