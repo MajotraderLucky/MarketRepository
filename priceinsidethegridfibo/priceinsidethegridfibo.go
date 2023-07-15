@@ -16,7 +16,7 @@ func Hello() {
 	fmt.Println("Hello from package priceinsidethegridfibo!")
 }
 
-func Priceingrid() {
+func Priceingrid(ch chan bool) {
 	fmt.Println("-----------------------------------------")
 	tickerName := "BTCUSDT"
 	fmt.Println(tickerName, "- ticker")
@@ -155,4 +155,11 @@ func Priceingrid() {
 
 	priceBetween382and786 := askPriceFloat < longFib382 && askPriceFloat > longFib786
 	fmt.Println("Condition price between fibo 382 and 786 -", priceBetween382and786)
+
+	ch <- priceBetween382and786
+}
+
+func SetPriceBetween(ch chan bool) {
+	setPriceBetweenVar := <-ch
+	fmt.Println("Input chan for the var SetPriceBetweenVar", setPriceBetweenVar)
 }
