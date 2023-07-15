@@ -140,4 +140,9 @@ func Priceingrid() {
 
 	fmt.Println("Lowest price    =", min)
 	fmt.Println("----------------------")
+
+	longFib382 := max - ((max - min) * 0.382)
+	fmt.Println("long Fibo 382 =", longFib382)
+	longFib786 := max - ((max - min) * 0.786)
+	fmt.Println("long Fibo 786 =", longFib786)
 }
