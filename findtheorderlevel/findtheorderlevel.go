@@ -159,4 +159,7 @@ func FindOrderLevel() {
 		fmt.Println(err)
 	}
 	fmt.Println("Ask price float =", askPriceFloat, reflect.TypeOf(askPriceFloat))
+
+	priceAbove236 := askPriceFloat > longFib236
+	fmt.Println("Price above the level 236 -", priceAbove236)
 }
