@@ -191,7 +191,7 @@ func FindOrderLevel(ch chan int) {
 	if countPriceLevel != 1 {
 		openPositionLevel = 0
 	}
-	// fmt.Println("Setup position level -", openPositionLevel)
+
 	ch <- openPositionLevel
 }
 
