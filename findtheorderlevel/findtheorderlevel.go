@@ -18,7 +18,7 @@ func Hello() {
 	fmt.Println()
 }
 
-func FindOrderLevel() {
+func FindOrderLevel(ch chan int) {
 	tickerName := "BTCUSDT"
 	fmt.Println(tickerName, "- ticker")
 
@@ -192,4 +192,10 @@ func FindOrderLevel() {
 		openPositionLevel = 0
 	}
 	fmt.Println("Setup position level -", openPositionLevel)
+	ch <- openPositionLevel
+}
+
+func SetSetupOrderLevel(ch chan int) {
+	setSetupOrderLevel := <-ch
+	fmt.Println("Input chan for the var setSetupOrderLevel -", setSetupOrderLevel)
 }
