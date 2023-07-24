@@ -198,4 +198,5 @@ func FindOrderLevel(ch chan int) {
 func SetSetupOrderLevel(ch chan int) {
 	setSetupOrderLevel := <-ch
 	fmt.Println("Input chan for the var setSetupOrderLevel -", setSetupOrderLevel)
+	fmt.Println("----------------------")
 }
