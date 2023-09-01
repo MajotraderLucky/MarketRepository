@@ -56,7 +56,7 @@ func Init() {
 
 	var acc Account
 	json.Unmarshal(accVar, &acc)
-	accountStart := 18.149229049682617 + 7.53667852 + 11.86 + 11.97 - 10
+	accountStart := 18.149229049682617 + 7.53667852 + 11.86 + 11.97 - 5
 	accountNowString := acc.AvailableBalance
 	if accountNowFloat, err := strconv.ParseFloat(accountNowString, 32); err == nil {
 		log.Println("-------------------Balance usdt----------------------")
