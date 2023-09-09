@@ -8,6 +8,7 @@ import (
 	"strconv"
 
 	"github.com/adshao/go-binance/v2"
+	"github.com/adshao/go-binance/v2/futures"
 	"github.com/joho/godotenv"
 )
 
@@ -64,4 +65,22 @@ func Init() {
 		log.Println(accountNowFloat, "- now")
 		log.Println("-----------------------------------------------------")
 	}
+}
+
+func NewFuturesClient() *futures.Client {
+	if err := godotenv.Load(); err != nil {
+		log.Println("No.env file found.")
+	}
+	log.Println(".env file loaded.")
+
+	apiKey, exists := os.LookupEnv("BINANCE_API_KEY")
+	if !exists {
+		log.Fatal("BINANCE_API_KEY not set")
+	}
+
+	secretKey, exexists := os.LookupEnv("BINANCE_SECRET_KEY")
+	if !exexists {
+		log.Fatal("BINANCE_SECRET_KEY not set")
+	}
+	return binance.NewFuturesClient(apiKey, secretKey)
 }
