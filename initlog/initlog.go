@@ -86,21 +86,20 @@ func NewFuturesClient() *futures.Client {
 }
 
 func CheckFilesExist() bool {
-	// Check for the presence of the .env file
-	_, err := os.Stat(".env")
-	if os.IsNotExist(err) {
-		log.Fatal("No.env file found.")
-		return false
+	if err := godotenv.Load(); err != nil {
+		log.Println("No.env file found.")
+	} else {
+		log.Println(".env file loaded.")
 	}
-	// Check for the BINANCE_API_KEY file
-	_, err = os.Stat("BINANCE_API_KEY")
-	if os.IsNotExist(err) {
+
+	_, exists := os.LookupEnv("BINANCE_API_KEY")
+	if !exists {
 		log.Fatal("BINANCE_API_KEY not set")
 		return false
 	}
-	// Check for the BINANCE_SECRET_KEY file
-	_, err = os.Stat("BINANCE_SECRET_KEY")
-	if os.IsNotExist(err) {
+
+	_, exexists := os.LookupEnv("BINANCE_SECRET_KEY")
+	if !exexists {
 		log.Fatal("BINANCE_SECRET_KEY not set")
 		return false
 	}
