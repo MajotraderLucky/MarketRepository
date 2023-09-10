@@ -84,3 +84,25 @@ func NewFuturesClient() *futures.Client {
 	}
 	return binance.NewFuturesClient(apiKey, secretKey)
 }
+
+func CheckFilesExist() bool {
+	// Check for the presence of the .env file
+	_, err := os.Stat(".env")
+	if os.IsNotExist(err) {
+		log.Fatal("No.env file found.")
+		return false
+	}
+	// Check for the BINANCE_API_KEY file
+	_, err = os.Stat("BINANCE_API_KEY")
+	if os.IsNotExist(err) {
+		log.Fatal("BINANCE_API_KEY not set")
+		return false
+	}
+	// Check for the BINANCE_SECRET_KEY file
+	_, err = os.Stat("BINANCE_SECRET_KEY")
+	if os.IsNotExist(err) {
+		log.Fatal("BINANCE_SECRET_KEY not set")
+		return false
+	}
+	return true
+}
