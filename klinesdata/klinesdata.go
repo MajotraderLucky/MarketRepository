@@ -1,7 +1,9 @@
 package klinesdata
 
-import "fmt"
+import (
+	"log"
+)
 
 func Hello() {
-	fmt.Println("Hello, lkinesdata!")
+	log.Println("Hello, lkinesdata!")
 }
