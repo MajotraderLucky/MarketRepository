@@ -33,12 +33,12 @@ func MillisecondsToTime(milliseconds int64) time.Time {
 func GetAPIKeys() (string, string) {
 	apiKey, exists := os.LookupEnv("BINANCE_API_KEY")
 	if exists {
-		log.Println("apiKey checked in GetDebtData()")
+		log.Println("apiKey checked")
 	}
 
 	secretKey, exexists := os.LookupEnv("BINANCE_SECRET_KEY")
 	if exexists {
-		log.Println("secretKey checked in GetDebtData()")
+		log.Println("secretKey checked")
 	}
 	return apiKey, secretKey
 }
