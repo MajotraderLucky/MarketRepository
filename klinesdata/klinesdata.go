@@ -188,7 +188,7 @@ type KlinesService interface {
 	Do(ctx context.Context, opts ...RequestOption) (res []*Kline, err error)
 }
 
-func FindMinMaxInfo2(client KlinesServiceGetter) (float64, float64, error) {
+func FindMinMaxInfoTest(client KlinesServiceGetter) (float64, float64, error) {
 	klines, err := client.
 		NewKlinesService().
 		Symbol("BTCUSDT").
