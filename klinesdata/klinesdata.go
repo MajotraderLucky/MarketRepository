@@ -235,12 +235,8 @@ func FindMinMaxInfoTest(client KlinesServiceGetter) (float64, float64, error) {
 	return max, min, nil
 }
 
-type MinMaxFinder interface {
-	FindMinMaxInfo() (float64, float64, error)
-}
-
-func GetFibonacciLevels(finder MinMaxFinder) (longFib236 float64, longFib382 float64, longFib500 float64, longFib618 float64, longFib786 float64, err error) {
-	max, min, err := finder.FindMinMaxInfo()
+func GetFibonacciLevels(longFib236 float64, longFib382 float64, longFib500 float64, longFib618 float64, longFib786 float64, err error) {
+	max, min, err := FindMinMaxInfo()
 	if err != nil {
 		log.Fatalf("Error getting min and max info: %v", err)
 		return
