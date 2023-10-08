@@ -188,7 +188,6 @@ type KlinesService interface {
 	Do(ctx context.Context, opts ...RequestOption) (res []*Kline, err error)
 }
 
-// я добавил параметр KlinesServiceGetter
 func FindMinMaxInfo2(client KlinesServiceGetter) (float64, float64, error) {
 	klines, err := client.
 		NewKlinesService().
