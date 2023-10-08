@@ -156,6 +156,9 @@ func FindMinMaxInfo() (float64, float64, error) {
 	log.Println("Lowest price    =", min)
 	log.Println("----------------------")
 
+	longFib236 := max - ((max - min) * 0.236)
+	log.Println("long Fibo 236 =", longFib236)
+
 	return max, min, nil
 }
 
