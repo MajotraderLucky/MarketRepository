@@ -156,9 +156,6 @@ func FindMinMaxInfo() (float64, float64, error) {
 	log.Println("Lowest price    =", min)
 	log.Println("----------------------")
 
-	longFib236 := max - ((max - min) * 0.236)
-	log.Println("long Fibo 236 =", longFib236)
-
 	return max, min, nil
 }
 
@@ -236,4 +233,25 @@ func FindMinMaxInfoTest(client KlinesServiceGetter) (float64, float64, error) {
 	log.Println("----------------------")
 
 	return max, min, nil
+}
+
+func GetFibonacciLevels() (longFib236 float64, longFib382 float64, longFib500 float64, longFib618 float64, longFib786 float64, err error) {
+	max, min, err := FindMinMaxInfo()
+	if err != nil {
+		log.Fatalf("Error getting min and max info: %v", err)
+		return
+	}
+
+	longFib236 = max - ((max - min) * 0.236)
+	log.Println("long Fibo 236 =", longFib236)
+	longFib382 = max - ((max - min) * 0.382)
+	log.Println("long Fibo 382 =", longFib382)
+	longFib500 = max - ((max - min) * 0.500)
+	log.Println("long Fibo 500 =", longFib500)
+	longFib618 = max - ((max - min) * 0.618)
+	log.Println("long Fibo 618 =", longFib618)
+	longFib786 = max - ((max - min) * 0.786)
+	log.Println("long Fibo 786 =", longFib786)
+	log.Println("----------------------")
+	return
 }
