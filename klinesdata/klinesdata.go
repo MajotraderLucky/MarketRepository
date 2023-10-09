@@ -255,3 +255,32 @@ func GetFibonacciLevels() {
 	log.Println("----------------------")
 	return
 }
+
+// Modified GetFibonacciLevels function for futher testing
+type Logger interface {
+	Println(v ...interface{})
+	Fatalf(format string, v ...interface{})
+}
+
+func GetFibonacciLevelsTest(logger Logger) {
+	max, min, err := FindMinMaxInfo()
+	if err != nil {
+		logger.Fatalf("Error getting min and max info: %v", err)
+		return
+	}
+
+	longFib236 := max - ((max - min) * 0.236)
+	logger.Println("long Fibo 236 =", longFib236)
+	longFib382 := max - ((max - min) * 0.382)
+	logger.Println("long Fibo 382 =", longFib382)
+	longFib500 := max - ((max - min) * 0.500)
+	logger.Println("long Fibo 500 =", longFib500)
+	longFib618 := max - ((max - min) * 0.618)
+	logger.Println("long Fibo 618 =", longFib618)
+	longFib786 := max - ((max - min) * 0.786)
+	logger.Println("long Fibo 786 =", longFib786)
+	logger.Println("----------------------")
+	return
+}
+
+// ---------------------------------------------------------
