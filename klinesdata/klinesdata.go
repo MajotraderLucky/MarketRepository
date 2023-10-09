@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/MajotraderLucky/MarketRepository/klinesdata"
 	"github.com/adshao/go-binance/v2"
 )
 
@@ -262,7 +263,7 @@ type Logger interface {
 	Fatalf(format string, v ...interface{})
 }
 
-func GetFibonacciLevelsTest(logger Logger) (float64, float64, float64, float64, float64, error) {
+func GetFibonacciLevelsTest(logger klinesdata.Logger, minMaxFunc func() (float64, float64, error)) (float64, float64, float64, float64, float64, error) {
 	max, min, err := FindMinMaxInfo()
 	if err != nil {
 		logger.Fatalf("Error getting min and max info: %v", err)
