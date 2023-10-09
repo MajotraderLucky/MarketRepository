@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math"
 	"net/http"
 	"os"
 	"strconv"
@@ -283,3 +284,18 @@ func GetFibonacciLevelsTest(logger Logger, minMaxFunc func() (float64, float64, 
 }
 
 // ---------------------------------------------------------
+
+func FindPriceCorridor() (float64, error) {
+	max, min, err := FindMinMaxInfo()
+	if err != nil {
+		return 0, fmt.Errorf("Error getting min and max info: %v", err)
+	}
+
+	priceCorridor := max - min
+	priceCorridorPercent := ((max - min) / max) * 100
+	log.Println("Price corridor    =", priceCorridor)
+	log.Println("Price corridor(%) = ", math.Round(priceCorridorPercent*100)/100, "%")
+	log.Println("----------------------")
+
+	return math.Round(priceCorridorPercent*100) / 100, nil
+}
