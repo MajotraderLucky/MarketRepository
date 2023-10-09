@@ -262,11 +262,10 @@ type Logger interface {
 	Fatalf(format string, v ...interface{})
 }
 
-func GetFibonacciLevelsTest(logger Logger) {
+func GetFibonacciLevelsTest(logger Logger) (float64, float64, float64, float64, float64, error) {
 	max, min, err := FindMinMaxInfo()
 	if err != nil {
 		logger.Fatalf("Error getting min and max info: %v", err)
-		return
 	}
 
 	longFib236 := max - ((max - min) * 0.236)
@@ -280,7 +279,7 @@ func GetFibonacciLevelsTest(logger Logger) {
 	longFib786 := max - ((max - min) * 0.786)
 	logger.Println("long Fibo 786 =", longFib786)
 	logger.Println("----------------------")
-	return
+	return longFib236, longFib382, longFib500, longFib618, longFib786, nil
 }
 
 // ---------------------------------------------------------
