@@ -299,3 +299,21 @@ func FindPriceCorridor() (float64, error) {
 
 	return math.Round(priceCorridorPercent*100) / 100, nil
 }
+
+// Make FixedPriceCorTest() function for further testing
+func FindPriceCorridorTest(logger *log.Logger, findMinMaxInfo func() (float64, float64, error)) (float64, error) {
+	max, min, err := findMinMaxInfo()
+	if err != nil {
+		return 0, fmt.Errorf("Error getting min and max info: %v", err)
+	}
+
+	priceCorridor := max - min
+	priceCorridorPercent := ((max - min) / max) * 100
+
+	// Use the provided logger
+	logger.Println("Price corridor    =", priceCorridor)
+	logger.Println("Price corridor(%) = ", math.Round(priceCorridorPercent*100)/100, "%")
+	logger.Println("----------------------")
+
+	return math.Round(priceCorridorPercent*100) / 100, nil
+}
