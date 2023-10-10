@@ -301,7 +301,7 @@ func FindPriceCorridor() (float64, error) {
 }
 
 // Make FixedPriceCorTest() function for further testing
-func FindPriceCorridorTest(logger *log.Logger, findMinMaxInfo func() (float64, float64, error)) (float64, error) {
+func FindPriceCorridorTest(logger Logger, findMinMaxInfo func() (float64, float64, error)) (float64, error) {
 	max, min, err := findMinMaxInfo()
 	if err != nil {
 		return 0, fmt.Errorf("Error getting min and max info: %v", err)
