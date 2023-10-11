@@ -317,3 +317,16 @@ func FindPriceCorridorTest(logger Logger, findMinMaxInfo func() (float64, float6
 
 	return math.Round(priceCorridorPercent*100) / 100, nil
 }
+
+// Returns true if the calculated price corridor is higher than the provided threshold.
+func IsCorridorHigher(threshold int) (bool, error) {
+	priceCorridorPercent, err := FindPriceCorridor()
+	if err != nil {
+		return false, err
+	}
+
+	log.Println("Price corridor > threshold = ", priceCorridorPercent > float64(threshold))
+
+	// Checks if the price corridor is higher than the provided threshold
+	return priceCorridorPercent > float64(threshold), nil
+}
