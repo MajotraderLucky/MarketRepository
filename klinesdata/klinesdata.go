@@ -325,7 +325,7 @@ func IsCorridorHigher(threshold int) (bool, error) {
 		return false, err
 	}
 
-	log.Println("Price corridor > threshold = ", priceCorridorPercent > float64(threshold))
+	log.Println("Price corridor >", threshold, "%", priceCorridorPercent > float64(threshold))
 
 	// Checks if the price corridor is higher than the provided threshold
 	return priceCorridorPercent > float64(threshold), nil
