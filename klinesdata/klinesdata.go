@@ -330,3 +330,35 @@ func IsCorridorHigher(threshold int) (bool, error) {
 	// Checks if the price corridor is higher than the provided threshold
 	return priceCorridorPercent > float64(threshold), nil
 }
+
+// Add types and new functions for writing tests for the IsCorridorHigher() function
+type CorridorFinder interface {
+	FindPriceCorridor() (float64, error)
+}
+
+type CorridorChecker struct {
+	finder CorridorFinder
+}
+
+func (cc *CorridorChecker) IsCorridorHigherTest(threshold int) (bool, error) {
+	priceCorridorPercent, err := FindPriceCorridor()
+	if err != nil {
+		return false, err
+	}
+
+	log.Println("Price corridor >", threshold, "%", priceCorridorPercent > float64(threshold))
+
+	// Checks if the price corridor is higher than the provided threshold
+	return priceCorridorPercent > float64(threshold), nil
+}
+
+type MockCorridorFinder struct {
+	corridor float64
+	err      error
+}
+
+func (m *MockCorridorFinder) FindPriceCorridor() (float64, error) {
+	return m.corridor, m.err
+}
+
+// ------------------------------------------------------------------------
