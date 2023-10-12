@@ -337,7 +337,7 @@ type CorridorFinder interface {
 }
 
 type CorridorChecker struct {
-	finder CorridorFinder
+	Finder CorridorFinder
 }
 
 func (cc *CorridorChecker) IsCorridorHigherTest(threshold int) (bool, error) {
