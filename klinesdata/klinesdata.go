@@ -353,8 +353,8 @@ func (cc *CorridorChecker) IsCorridorHigherTest(threshold int) (bool, error) {
 }
 
 type MockCorridorFinder struct {
-	corridor float64
-	err      error
+	Corridor float64
+	Err      error
 }
 
 func (m *MockCorridorFinder) FindPriceCorridor() (float64, error) {
