@@ -358,7 +358,7 @@ type MockCorridorFinder struct {
 }
 
 func (m *MockCorridorFinder) FindPriceCorridor() (float64, error) {
-	return m.corridor, m.err
+	return m.Corridor, m.Err
 }
 
 // ------------------------------------------------------------------------
