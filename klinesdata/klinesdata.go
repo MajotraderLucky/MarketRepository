@@ -404,5 +404,5 @@ func IsAskPriceHigherThanLongFib() {
 	}
 
 	log.Println("Ask price =", askPrice, "type:", reflect.TypeOf(askPrice))
-	log.Println("long Fibo 236 =", longFib236)
+	log.Println("long Fibo levels =", longFib236, "type:", reflect.TypeOf(longFib236))
 }
