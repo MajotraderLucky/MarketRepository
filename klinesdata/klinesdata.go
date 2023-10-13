@@ -8,7 +8,6 @@ import (
 	"math"
 	"net/http"
 	"os"
-	"reflect"
 	"strconv"
 	"time"
 
@@ -397,13 +396,18 @@ func IsAskPriceHigherThanLongFib() {
 		return
 	}
 
+	askPriceFloat64, err := strconv.ParseFloat(askPrice, 64)
+	if err != nil {
+		log.Fatalf("Error converting ask price to float: %v", err)
+		return
+	}
+
 	longFibSlice, err := GetFibonacciLevelsReturns()
 	if err != nil {
 		log.Fatalf("Error getting Fibonacci level: %v", err)
 		return
 	}
 
-	log.Println("Ask price =", askPrice, "type:", reflect.TypeOf(askPrice))
-	log.Println("long Fibo levels =", longFibSlice,
-		"type:", reflect.TypeOf(longFibSlice))
+	priceAboveLongFib236 := askPriceFloat64 > longFibSlice[0]
+	log.Println("Price above long Fibo 236 =", priceAboveLongFib236)
 }
