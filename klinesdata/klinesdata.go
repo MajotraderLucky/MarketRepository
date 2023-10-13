@@ -8,6 +8,7 @@ import (
 	"math"
 	"net/http"
 	"os"
+	"reflect"
 	"strconv"
 	"time"
 
@@ -367,3 +368,13 @@ func (m *MockCorridorFinder) FindPriceCorridor() (float64, error) {
 }
 
 // ------------------------------------------------------------------------
+
+func IsAskPriceHigherThanLongFib() {
+	askPrice, _, err := GetDebthData()
+	if err != nil {
+		log.Fatalf("Error getting ask price: %v", err)
+		return
+	}
+
+	log.Println("Ask price =", askPrice, "type:", reflect.TypeOf(askPrice))
+}
