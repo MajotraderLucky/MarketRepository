@@ -263,6 +263,27 @@ func GetFibonacciLevels() {
 	return
 }
 
+func GetFibonacciLevelsReturns() ([]float64, error) {
+	max, min, err := FindMinMaxInfo()
+	if err != nil {
+		log.Printf("Error getting min and max info: %v", err)
+		return nil, err
+	}
+
+	longFib236 := max - ((max - min) * 0.236)
+	log.Println("long Fibo 236 =", longFib236)
+	longFib382 := max - ((max - min) * 0.382)
+	log.Println("long Fibo 382 =", longFib382)
+	longFib500 := max - ((max - min) * 0.500)
+	log.Println("long Fibo 500 =", longFib500)
+	longFib618 := max - ((max - min) * 0.618)
+	log.Println("long Fibo 618 =", longFib618)
+	longFib786 := max - ((max - min) * 0.786)
+	log.Println("long Fibo 786 =", longFib786)
+	log.Println("----------------------")
+	return []float64{longFib236, longFib382, longFib500, longFib618, longFib786}, nil
+}
+
 // Modified GetFibonacciLevels function for futher testing
 type Logger interface {
 	Println(v ...interface{})
@@ -373,6 +394,12 @@ func IsAskPriceHigherThanLongFib() {
 	askPrice, _, err := GetDebthData()
 	if err != nil {
 		log.Fatalf("Error getting ask price: %v", err)
+		return
+	}
+
+	longFib236, err := GetFibonacciLevels()
+	if err != nil {
+		log.Fatalf("Error getting Fibonacci level: %v", err)
 		return
 	}
 
