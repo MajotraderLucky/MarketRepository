@@ -397,11 +397,12 @@ func IsAskPriceHigherThanLongFib() {
 		return
 	}
 
-	longFib236, err := GetFibonacciLevels()
+	longFib236, err := GetFibonacciLevelsReturns()
 	if err != nil {
 		log.Fatalf("Error getting Fibonacci level: %v", err)
 		return
 	}
 
 	log.Println("Ask price =", askPrice, "type:", reflect.TypeOf(askPrice))
+	log.Println("long Fibo 236 =", longFib236)
 }
