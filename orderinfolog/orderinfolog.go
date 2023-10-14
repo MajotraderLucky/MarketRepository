@@ -27,23 +27,6 @@ func GetAPIKeys() (string, string) {
 	return apiKey, secretKey
 }
 
-func GetOpenOrdersInfo() {
-	apiKey, secretKey := GetAPIKeys()
-
-	futuresClient := binance.NewFuturesClient(apiKey, secretKey)
-
-	openOrders, err := futuresClient.NewListOpenOrdersService().Symbol("BTCUSDT").
-		Do(context.Background())
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	for _, o := range openOrders {
-		log.Println(o)
-		log.Println(len(openOrders), "orders have been opened")
-	}
-}
-
 func GetOpenOrdersInfoJson() {
 	apiKey, secretKey := GetAPIKeys()
 
@@ -58,7 +41,7 @@ func GetOpenOrdersInfoJson() {
 
 	filePath := "logs/orders.json"
 
-	// Создайте файл для записи
+	// Create a file for writing
 	file, err := os.Create(filePath)
 	if err != nil {
 		log.Println(err)
@@ -66,9 +49,9 @@ func GetOpenOrdersInfoJson() {
 	}
 	defer file.Close()
 
-	// Используйте json.NewEncoder для записи каждого значения в файл JSON
+	// Use json.NewEncoder to write each value to the JSON file
 	encoder := json.NewEncoder(file)
-	encoder.SetIndent("", "\t") // для красивого вывода JSON
+	encoder.SetIndent("", "\t") // for pretty JSON output
 
 	if err := encoder.Encode(openOrders); err != nil {
 		log.Println(err)
