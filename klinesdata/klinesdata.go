@@ -432,3 +432,63 @@ func IsAskPriceHigherThanLongFibRetLog() (string, bool) {
 	log.Println("Price is not higher than any Fibonacci level")
 	return "", false
 }
+
+// ------Test for the IsAskPriceHigherThanLongFibRetLog() function---------
+type PriceGetter interface {
+	GetDebthData() (string, string, error)
+}
+
+type FibLevelCalculator interface {
+	GetFibonacciLevelsReturns() ([]float64, error)
+}
+
+type PriceChecker struct {
+	PGetter      PriceGetter
+	FLCalculator FibLevelCalculator
+}
+
+func (pc *PriceChecker) IsAskPriceHigherThanLongFibRetLogTest() (string, bool) {
+	askPrice, _, err := pc.PGetter.GetDebthData()
+	if err != nil {
+		log.Fatalf("Error getting ask price: %v", err)
+		return "", false
+	}
+
+	askPriceFloat64, err := strconv.ParseFloat(askPrice, 64)
+	if err != nil {
+		log.Fatalf("Error converting ask price to float: %v", err)
+		return "", false
+	}
+
+	longFibSlice, err := pc.FLCalculator.GetFibonacciLevelsReturns()
+	if err != nil {
+		log.Fatalf("Error getting Fibonacci level: %v", err)
+		return "", false
+	}
+
+	if askPriceFloat64 > longFibSlice[0] {
+		log.Printf("Price is higher than LongFib236")
+		return "LongFib236", true
+	}
+
+	if askPriceFloat64 > longFibSlice[1] && askPriceFloat64 < longFibSlice[0] {
+		log.Printf("Price is higher than LongFib382")
+		return "LongFib382", true
+	}
+	if askPriceFloat64 > longFibSlice[2] && askPriceFloat64 < longFibSlice[1] {
+		log.Printf("Price is higher than LongFib500")
+		return "LongFib500", true
+	}
+	if askPriceFloat64 > longFibSlice[3] && askPriceFloat64 < longFibSlice[2] {
+		log.Printf("Price is higher than LongFib618")
+		return "LongFib618", true
+	}
+	if askPriceFloat64 > longFibSlice[4] && askPriceFloat64 < longFibSlice[3] {
+		log.Printf("Price is higher than LongFib786")
+		return "LongFib786", true
+	}
+
+	return "", false
+}
+
+// ------------------------------------------------------------------------
