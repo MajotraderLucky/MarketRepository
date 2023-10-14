@@ -421,3 +421,44 @@ func IsAskPriceHigherThanLongFib() {
 	log.Println("Price above long Fibo 786 =", priceAboveLongFib786)
 	log.Println("Price below long Fibo 786 =", priceBelowLongFib786)
 }
+
+func IsAskPriceHigherThanLongFibReturn() (string, bool) {
+	askPrice, _, err := GetDebthData()
+	if err != nil {
+		log.Fatalf("Error getting ask price: %v", err)
+		return "", false
+	}
+
+	askPriceFloat64, err := strconv.ParseFloat(askPrice, 64)
+	if err != nil {
+		log.Fatalf("Error converting ask price to float: %v", err)
+		return "", false
+	}
+
+	longFibSlice, err := GetFibonacciLevelsReturns()
+	if err != nil {
+		log.Fatalf("Error getting Fibonacci level: %v", err)
+		return "", false
+	}
+
+	if askPriceFloat64 > longFibSlice[0] {
+		return "LongFib236", true
+	}
+	if askPriceFloat64 > longFibSlice[1] && askPriceFloat64 < longFibSlice[0] {
+		return "LongFib382", true
+	}
+	if askPriceFloat64 > longFibSlice[2] && askPriceFloat64 < longFibSlice[1] {
+		return "LongFib500", true
+	}
+	if askPriceFloat64 > longFibSlice[3] && askPriceFloat64 < longFibSlice[2] {
+		return "LongFib618", true
+	}
+	if askPriceFloat64 > longFibSlice[4] && askPriceFloat64 < longFibSlice[3] {
+		return "LongFib786", true
+	}
+	if askPriceFloat64 < longFibSlice[4] {
+		return "BelowLongFib786", true
+	}
+
+	return "", false
+}
