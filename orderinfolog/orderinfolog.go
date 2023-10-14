@@ -44,17 +44,11 @@ func GetOpenOrdersInfo() {
 	}
 }
 
-type Output struct {
-	Orders    []Order `json:"orders"`
-	NumOpened int     `json:"numOpened"`
-}
-
 func GetOpenOrdersInfoJson() {
 	apiKey, secretKey := GetAPIKeys()
 
 	futuresClient := binance.NewFuturesClient(apiKey, secretKey)
 
-	// Предположим, что функция NewListOpenOrdersService() возвращает []Order
 	openOrders, err := futuresClient.NewListOpenOrdersService().Symbol("BTCUSDT").
 		Do(context.Background())
 	if err != nil {
@@ -72,16 +66,11 @@ func GetOpenOrdersInfoJson() {
 	}
 	defer file.Close()
 
-	// Создайте экземпляр Output и добавьте заказы и количество открытых заказов
-	output := &Output{
-		Orders:    openOrders,
-		NumOpened: len(openOrders),
-	}
-
+	// Используйте json.NewEncoder для записи каждого значения в файл JSON
 	encoder := json.NewEncoder(file)
 	encoder.SetIndent("", "\t") // для красивого вывода JSON
 
-	if err := encoder.Encode(output); err != nil {
+	if err := encoder.Encode(openOrders); err != nil {
 		log.Println(err)
 	}
 }
