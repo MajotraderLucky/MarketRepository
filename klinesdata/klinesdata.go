@@ -389,39 +389,6 @@ func (m *MockCorridorFinder) FindPriceCorridor() (float64, error) {
 
 // ------------------------------------------------------------------------
 
-func IsAskPriceHigherThanLongFib() {
-	askPrice, _, err := GetDebthData()
-	if err != nil {
-		log.Fatalf("Error getting ask price: %v", err)
-		return
-	}
-
-	askPriceFloat64, err := strconv.ParseFloat(askPrice, 64)
-	if err != nil {
-		log.Fatalf("Error converting ask price to float: %v", err)
-		return
-	}
-
-	longFibSlice, err := GetFibonacciLevelsReturns()
-	if err != nil {
-		log.Fatalf("Error getting Fibonacci level: %v", err)
-		return
-	}
-
-	priceAboveLongFib236 := askPriceFloat64 > longFibSlice[0]
-	priceAboveLongFib382 := askPriceFloat64 > longFibSlice[1] && askPriceFloat64 < longFibSlice[0]
-	priceAboveLongFib500 := askPriceFloat64 > longFibSlice[2] && askPriceFloat64 < longFibSlice[1]
-	priceAboveLongFib618 := askPriceFloat64 > longFibSlice[3] && askPriceFloat64 < longFibSlice[2]
-	priceAboveLongFib786 := askPriceFloat64 > longFibSlice[4] && askPriceFloat64 < longFibSlice[3]
-	priceBelowLongFib786 := askPriceFloat64 < longFibSlice[4]
-	log.Println("Price above long Fibo 236 =", priceAboveLongFib236)
-	log.Println("Price above long Fibo 382 =", priceAboveLongFib382)
-	log.Println("Price above long Fibo 500 =", priceAboveLongFib500)
-	log.Println("Price above long Fibo 618 =", priceAboveLongFib618)
-	log.Println("Price above long Fibo 786 =", priceAboveLongFib786)
-	log.Println("Price below long Fibo 786 =", priceBelowLongFib786)
-}
-
 func IsAskPriceHigherThanLongFibRetLog() (string, bool) {
 	askPrice, _, err := GetDebthData()
 	if err != nil {
