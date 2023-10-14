@@ -409,5 +409,7 @@ func IsAskPriceHigherThanLongFib() {
 	}
 
 	priceAboveLongFib236 := askPriceFloat64 > longFibSlice[0]
+	priceAboveLongFib382 := askPriceFloat64 > longFibSlice[1] && askPriceFloat64 < longFibSlice[0]
 	log.Println("Price above long Fibo 236 =", priceAboveLongFib236)
+	log.Println("Price above long Fibo 382 =", priceAboveLongFib382)
 }
