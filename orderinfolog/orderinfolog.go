@@ -57,3 +57,33 @@ func GetOpenOrdersInfoJson() {
 		log.Println(err)
 	}
 }
+
+func GetOpenOrdersInfoJsonTest(futuresClient *binance.FuturesClient) error {
+	openOrders, err := futuresClient.NewListOpenOrdersService().Symbol("BTCUSDT").
+		Do(context.Background())
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+
+	filePath := "logs/orders.json"
+
+	// Create a file for writing
+	file, err := os.Create(filePath)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	defer file.Close()
+
+	// Use json.NewEncoder to write each value to the JSON file
+	encoder := json.NewEncoder(file)
+	encoder.SetIndent("", "\t") // for pretty JSON output
+
+	if err := encoder.Encode(openOrders); err != nil {
+		log.Println(err)
+		return err
+	}
+
+	return nil
+}
