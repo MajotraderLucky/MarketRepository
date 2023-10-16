@@ -59,20 +59,31 @@ func GetOpenOrdersInfoJson() {
 }
 
 // -------------------This function for the test---------------------------
-type OrderInfo struct {
-	Client     *binance.FuturesClient
-	OpenOrders []binance.OpenOrder
+type OpenOrder struct {
+	OrderID string
+	Symbol  string
 }
 
-func GetOpenOrdersInfoJsonTest(futuresClient *binance.FuturesClient) error {
-	openOrders, err := futuresClient.NewListOpenOrdersService().Symbol("BTCUSDT").
-		Do(context.Background())
+type OrderInfoLogger interface {
+	GetOpenOrders() ([]OpenOrder, error)
+}
+
+func GetOpenOrdersInfoJsonTest(orderService OrderInfoLogger, filePath string) error {
+	apiKey, secretKey := GetAPIKeys()
+
+	futuresClient := binance.NewFuturesClient(apiKey, secretKey)
+	openOrdersFromService, err := orderService.GetOpenOrders()
 	if err != nil {
 		log.Println(err)
 		return err
 	}
 
-	filePath := "logs/orders.json"
+	openOrdersFromAPI, err := futuresClient.NewListOpenOrdersService().Symbol("BTCUSDT").
+		Do(context.Background())
+	if err != nil {
+		log.Println(err)
+		return err
+	}
 
 	// Create a file for writing
 	file, err := os.Create(filePath)
@@ -86,12 +97,14 @@ func GetOpenOrdersInfoJsonTest(futuresClient *binance.FuturesClient) error {
 	encoder := json.NewEncoder(file)
 	encoder.SetIndent("", "\t") // for pretty JSON output
 
-	if err := encoder.Encode(openOrders); err != nil {
+	if err := encoder.Encode(openOrdersFromAPI); err != nil {
 		log.Println(err)
 		return err
 	}
 
+	if err := encoder.Encode(openOrdersFromService); err != nil {
+		log.Println(err)
+		return err
+	}
 	return nil
 }
-
-// ---------------------------------------------------------------------------
