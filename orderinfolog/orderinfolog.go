@@ -58,6 +58,12 @@ func GetOpenOrdersInfoJson() {
 	}
 }
 
+// -------------------This function for the test---------------------------
+type OrderInfo struct {
+	Client     *binance.FuturesClient
+	OpenOrders []binance.OpenOrder
+}
+
 func GetOpenOrdersInfoJsonTest(futuresClient *binance.FuturesClient) error {
 	openOrders, err := futuresClient.NewListOpenOrdersService().Symbol("BTCUSDT").
 		Do(context.Background())
@@ -87,3 +93,5 @@ func GetOpenOrdersInfoJsonTest(futuresClient *binance.FuturesClient) error {
 
 	return nil
 }
+
+// ---------------------------------------------------------------------------
