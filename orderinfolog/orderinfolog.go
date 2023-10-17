@@ -56,6 +56,7 @@ func GetOpenOrdersInfoJson() {
 	if err := encoder.Encode(openOrders); err != nil {
 		log.Println(err)
 	}
+	log.Println("orders.json file created")
 }
 
 // -------------------This function for the test---------------------------
@@ -108,3 +109,5 @@ func GetOpenOrdersInfoJsonTest(orderService OrderInfoLogger, filePath string) er
 	}
 	return nil
 }
+
+// ---------------------------------------------------------------------
