@@ -10,7 +10,7 @@ func Hello() {
 	log.Println("Hello, tradinglog!")
 }
 
-func GetFiboLevel() {
+func GetFiboLevelStartTrade() {
 	var isAskPriceHigherThanLongFib236 bool
 	var isAskPriceHigherThanLongFib382 bool
 	var isAskPriceHigherThanLongFib500 bool
@@ -41,19 +41,26 @@ func GetFiboLevel() {
 		isAskPriceHigherThanLongFib786 = false
 		log.Println("The ask price is not higher than any Fibonacci retracement level.")
 	}
-	if isAskPriceHigherThanLongFib236 {
-		log.Println("236")
+
+	threshold := 5
+	isHigherCorridor, err := klinesdata.IsCorridorHigher(threshold)
+	if err != nil {
+		return
 	}
-	if isAskPriceHigherThanLongFib382 {
-		log.Println("382")
+
+	if isAskPriceHigherThanLongFib236 && isHigherCorridor {
+		log.Println("startTrade236")
 	}
-	if isAskPriceHigherThanLongFib500 {
-		log.Println("500")
+	if isAskPriceHigherThanLongFib382 && isHigherCorridor {
+		log.Println("startTrade382")
 	}
-	if isAskPriceHigherThanLongFib618 {
-		log.Println("618")
+	if isAskPriceHigherThanLongFib500 && isHigherCorridor {
+		log.Println("startTrade500")
 	}
-	if isAskPriceHigherThanLongFib786 {
-		log.Println("786")
+	if isAskPriceHigherThanLongFib618 && isHigherCorridor {
+		log.Println("startTrade618")
+	}
+	if isAskPriceHigherThanLongFib786 && isHigherCorridor {
+		log.Println("startTrade786")
 	}
 }
