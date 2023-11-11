@@ -111,3 +111,26 @@ func GetOpenOrdersInfoJsonTest(orderService OrderInfoLogger, filePath string) er
 }
 
 // ---------------------------------------------------------------------
+
+func CheckIfOpenOrdersExist() bool {
+	apiKey, secretKey := GetAPIKeys()
+
+	futuresClient := binance.NewFuturesClient(apiKey, secretKey)
+
+	openOrders, err := futuresClient.NewListOpenOrdersService().Symbol("BTCUSDT").
+		Do(context.Background())
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+
+	// If length of open orders is 0, returning false (No open orders)
+	if len(openOrders) == 0 {
+		log.Println("No open orders exist")
+		return false
+	}
+
+	// If there are any open orders returning true
+	log.Println("Open orders exist")
+	return true
+}
