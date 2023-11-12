@@ -137,8 +137,12 @@ func CheckIfOpenOrdersExist() bool {
 
 // --------------Test CheckIfOpenOrdersExist-------------------------
 
+type ListOpenOrdersService interface {
+	Do(ctx context.Context, opts ...binance.RequestOption) (res []*binance.Order, err error)
+}
+
 type BinanceService interface {
-	NewListOpenOrdersService() *binance.ListOpenOrdersService
+	NewListOpenOrdersService() ListOpenOrdersService
 }
 
 func CheckIfOpenOrdersExistTest(service BinanceService) bool {
