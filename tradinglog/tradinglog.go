@@ -4,13 +4,14 @@ import (
 	"log"
 
 	"github.com/MajotraderLucky/MarketRepository/klinesdata"
+	"github.com/MajotraderLucky/MarketRepository/orderinfolog"
 )
 
 func Hello() {
 	log.Println("Hello, tradinglog!")
 }
 
-func GetFiboLevelStartTrade() {
+func GetFiboLevelStartTrade() (string, error) {
 	var isAskPriceHigherThanLongFib236 bool
 	var isAskPriceHigherThanLongFib382 bool
 	var isAskPriceHigherThanLongFib500 bool
@@ -45,22 +46,34 @@ func GetFiboLevelStartTrade() {
 	threshold := 5
 	isHigherCorridor, err := klinesdata.IsCorridorHigher(threshold)
 	if err != nil {
-		return
+		log.Printf("Error getting corridor: %v", err)
+		return "", err
 	}
 
-	if isAskPriceHigherThanLongFib236 && isHigherCorridor {
-		log.Println("startTrade236")
+	newOpenPos382 := isAskPriceHigherThanLongFib382 && isHigherCorridor && !orderinfolog.CheckIfOpenOrdersExist()
+	newOpenPos500 := isAskPriceHigherThanLongFib500 && isHigherCorridor && !orderinfolog.CheckIfOpenOrdersExist()
+	newOpenPos618 := isAskPriceHigherThanLongFib618 && isHigherCorridor && !orderinfolog.CheckIfOpenOrdersExist()
+	newOpenPos786 := isAskPriceHigherThanLongFib786 && isHigherCorridor && !orderinfolog.CheckIfOpenOrdersExist()
+
+	if isAskPriceHigherThanLongFib236 {
+		log.Println("stopTrade236")
+		return "stopTrade236", nil
 	}
-	if isAskPriceHigherThanLongFib382 && isHigherCorridor {
+	if newOpenPos382 {
 		log.Println("startTrade382")
+		return "startTrade382", nil
 	}
-	if isAskPriceHigherThanLongFib500 && isHigherCorridor {
+	if newOpenPos500 {
 		log.Println("startTrade500")
+		return "startTrade500", nil
 	}
-	if isAskPriceHigherThanLongFib618 && isHigherCorridor {
+	if newOpenPos618 {
 		log.Println("startTrade618")
+		return "startTrade618", nil
 	}
-	if isAskPriceHigherThanLongFib786 && isHigherCorridor {
+	if newOpenPos786 {
 		log.Println("startTrade786")
+		return "startTrade786", nil
 	}
+	return "", nil
 }
