@@ -134,3 +134,25 @@ func CheckIfOpenOrdersExist() bool {
 	log.Println("Open orders exist")
 	return true
 }
+
+// --------------Test CheckIfOpenOrdersExist-------------------------
+
+type BinanceService interface {
+	NewListOpenOrdersService() *binance.ListOpenOrdersService
+}
+
+func CheckIfOpenOrdersExistTest(service BinanceService) bool {
+	openOrders, err := service.NewListOpenOrdersService().Do(context.Background())
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+
+	if len(openOrders) > 0 {
+		return true
+	} else {
+		return false
+	}
+}
+
+// --------------------------------------------------------------------
