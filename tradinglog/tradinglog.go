@@ -77,3 +77,16 @@ func GetFiboLevelStartTrade() (string, error) {
 	}
 	return "", nil
 }
+
+func ShouldStopTrade236() bool {
+	response, err := GetFiboLevelStartTrade()
+	if err != nil {
+		log.Printf("Error getting Fibonacci retracement level: %v", err)
+		return false
+	}
+	if response == "stopTrade236" {
+		log.Println("stopTrade236")
+		return true
+	}
+	return false
+}
