@@ -78,14 +78,85 @@ func GetFiboLevelStartTrade() (string, error) {
 	return "", nil
 }
 
-func ShouldStopTrade236() bool {
-	response, err := GetFiboLevelStartTrade()
-	if err != nil {
-		log.Printf("Error getting Fibonacci retracement level: %v", err)
+type TradeLevels struct {
+	Response string
+	Error    error
+}
+
+var tradeLevels *TradeLevels
+
+func GetFiboLevelStartTradeOnce() *TradeLevels {
+	// This will get the values only once and store them
+	if tradeLevels == nil {
+		response, err := GetFiboLevelStartTrade()
+		tradeLevels = &TradeLevels{
+			Response: response,
+			Error:    err,
+		}
+	}
+	return tradeLevels
+}
+
+func IsStopTradeLevel236Met() bool {
+	levels := GetFiboLevelStartTradeOnce()
+	if levels.Error != nil {
+		log.Printf("Error getting Fibonacci retracement level: %v", levels.Error)
 		return false
 	}
-	if response == "stopTrade236" {
+	if levels.Response == "stopTrade236" {
 		log.Println("stopTrade236")
+		return true
+	}
+	return false
+}
+
+func IsStartTradeLevel382Met() bool {
+	levels := GetFiboLevelStartTradeOnce()
+	if levels.Error != nil {
+		log.Printf("Error getting Fibonacci retracement level: %v", levels.Error)
+		return false
+	}
+	if levels.Response == "startTrade382" {
+		log.Println("startTrade382")
+		return true
+	}
+	return false
+}
+
+func IsStartTradeLevel500Met() bool {
+	levels := GetFiboLevelStartTradeOnce()
+	if levels.Error != nil {
+		log.Printf("Error getting Fibonacci retracement level: %v", levels.Error)
+		return false
+	}
+	if levels.Response == "startTrade500" {
+		log.Println("startTrade500")
+		return true
+	}
+	return false
+}
+
+func IsStartTradeLevel618Met() bool {
+	levels := GetFiboLevelStartTradeOnce()
+	if levels.Error != nil {
+		log.Printf("Error getting Fibonacci retracement level: %v", levels.Error)
+		return false
+	}
+	if levels.Response == "startTrade618" {
+		log.Println("startTrade618")
+		return true
+	}
+	return false
+}
+
+func IsStartTradeLevel786Met() bool {
+	levels := GetFiboLevelStartTradeOnce()
+	if levels.Error != nil {
+		log.Printf("Error getting Fibonacci retracement level: %v", levels.Error)
+		return false
+	}
+	if levels.Response == "startTrade786" {
+		log.Println("startTrade786")
 		return true
 	}
 	return false
