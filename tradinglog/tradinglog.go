@@ -104,7 +104,6 @@ func IsStopTradeLevel236Met() bool {
 		return false
 	}
 	if levels.Response == "stopTrade236" {
-		log.Println("stopTrade236")
 		return true
 	}
 	return false
@@ -117,7 +116,6 @@ func IsStartTradeLevel382Met() bool {
 		return false
 	}
 	if levels.Response == "startTrade382" {
-		log.Println("startTrade382")
 		return true
 	}
 	return false
@@ -130,7 +128,6 @@ func IsStartTradeLevel500Met() bool {
 		return false
 	}
 	if levels.Response == "startTrade500" {
-		log.Println("startTrade500")
 		return true
 	}
 	return false
@@ -143,7 +140,6 @@ func IsStartTradeLevel618Met() bool {
 		return false
 	}
 	if levels.Response == "startTrade618" {
-		log.Println("startTrade618")
 		return true
 	}
 	return false
@@ -156,7 +152,6 @@ func IsStartTradeLevel786Met() bool {
 		return false
 	}
 	if levels.Response == "startTrade786" {
-		log.Println("startTrade786")
 		return true
 	}
 	return false
