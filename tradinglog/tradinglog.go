@@ -85,7 +85,10 @@ type TradeLevels struct {
 
 var tradeLevels *TradeLevels
 
-func GetFiboLevelStartTradeOnce() *TradeLevels {
+type GetFiboLevelStart func() *TradeLevels // добавить эти две строки.
+var GetFiboLevelStartTradeOnce GetFiboLevelStart = getFiboLevelStartTradeOnce
+
+func getFiboLevelStartTradeOnce() *TradeLevels {
 	// This will get the values only once and store them
 	if tradeLevels == nil {
 		response, err := GetFiboLevelStartTrade()
