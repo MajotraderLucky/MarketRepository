@@ -2,7 +2,6 @@ package transactions
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"os"
 
@@ -36,9 +35,9 @@ func CreateLimitOrder(quantity string, price string) {
 		TimeInForce(futures.TimeInForceTypeGTC).Quantity(quantity).
 		Price(price).Do(context.Background())
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
-	fmt.Println(limitOrder)
+	log.Println(limitOrder)
 }
