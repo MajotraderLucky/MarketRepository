@@ -283,14 +283,7 @@ func GetFibonacciLevelsReturns() ([]float64, error) {
 	return []float64{longFib236, longFib382, longFib500, longFib618, longFib786}, nil
 }
 
-func ConvertFibonacciLevelsToInts() ([]int64, error) {
-	// Получение Fibonacci уровней в формате float64
-	floLevels, err := GetFibonacciLevelsReturns()
-	if err != nil {
-		log.Printf("Error getting Fibonacci levels: %v", err)
-		return nil, err
-	}
-
+func ConvertFibonacciLevelsToInts(floLevels []float64) ([]int64, error) {
 	// Создание слайса для хранения уровней в формате int64
 	intLevels := make([]int64, len(floLevels))
 
