@@ -295,6 +295,18 @@ func ConvertFibonacciLevelsToInts(floLevels []float64) ([]int64, error) {
 	return intLevels, nil
 }
 
+func ConvertIntsToStrings(intLevels []int64) ([]string, error) {
+	// Создание слайса для хранения уровней в формате string
+	strLevels := make([]string, len(intLevels))
+
+	// Конвертация каждого уровня в string и его сохранение в новый слайс
+	for i, intLevel := range intLevels {
+		strLevels[i] = strconv.FormatInt(intLevel, 10)
+	}
+
+	return strLevels, nil
+}
+
 // Modified GetFibonacciLevels function for futher testing
 type Logger interface {
 	Println(v ...interface{})
