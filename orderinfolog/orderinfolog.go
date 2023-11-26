@@ -3,6 +3,7 @@ package orderinfolog
 import (
 	"context"
 	"encoding/json"
+	"io"
 	"log"
 	"os"
 
@@ -182,5 +183,25 @@ func CheckIfOpenOrderOne() bool {
 
 	// If there are any open orders returning true
 	log.Println("No open orders exist")
+	return false
+}
+
+func CheckStopMarketOrders(r io.Reader) bool {
+	// Декодируем json в слайс структур
+	var orders []struct {
+		Type string `json:"type"`k
+	}
+	if err := json.NewDecoder(r).Decode(&orders); err != nil {
+		log.Fatal(err)
+	}
+
+	// Ищем ордер с типом "STOP_MARKET"
+	for _, order := range orders {
+		if order.Type == "STOP_MARKET" {
+			return true // Если нашли, то возвращаем true
+		}
+	}
+
+	// Если не нашли ни одного ордера с типом "STOP_MARKET", то возвращаем false
 	return false
 }
