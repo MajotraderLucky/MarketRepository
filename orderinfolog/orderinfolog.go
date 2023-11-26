@@ -189,7 +189,7 @@ func CheckIfOpenOrderOne() bool {
 func CheckStopMarketOrders(r io.Reader) bool {
 	// Декодируем json в слайс структур
 	var orders []struct {
-		Type string `json:"type"`k
+		Type string `json:"type"`
 	}
 	if err := json.NewDecoder(r).Decode(&orders); err != nil {
 		log.Fatal(err)
