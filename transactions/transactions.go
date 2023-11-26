@@ -41,3 +41,18 @@ func CreateLimitOrder(quantity string, price string) {
 
 	log.Println(limitOrder)
 }
+
+func CreatStopLossOrder(quantity string, stopPrice string) {
+	apiKey, secretKey := GetAPIKeys()
+	futuresClient := binance.NewFuturesClient(apiKey, secretKey)
+
+	stopOrder, err := futuresClient.NewCreateOrderService().Symbol("BTCUSDT").
+		Side(futures.SideTypeSell).Type(futures.OrderTypeStopMarket).
+		TimeInForce(futures.TimeInForceTypeGTC).Quantity(quantity).StopPrice(stopPrice).
+		Do(context.Background())
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	log.Println(stopOrder)
+}
