@@ -176,11 +176,11 @@ func CheckIfOpenOrderOne() bool {
 
 	// If length of open orders is 0, returning false (No open orders)
 	if len(openOrders) == 1 {
-		log.Println("No open orders exist")
-		return false
+		log.Println("Open orders exist")
+		return true
 	}
 
 	// If there are any open orders returning true
-	log.Println("Open orders exist")
-	return true
+	log.Println("No open orders exist")
+	return false
 }
