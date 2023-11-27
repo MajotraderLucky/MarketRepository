@@ -165,8 +165,28 @@ func FindMinMaxInfo() (float64, float64, error) {
 	return max, min, nil
 }
 
-// The data refers to the FindMinMaxInfo function and the subsequent
-// test of this function
+func ConvertMaxMinToInt(max, min float64) (int, int, error) {
+	max, min, err := FindMinMaxInfo()
+	if err != nil {
+		return 0, 0, err
+	}
+	maxInt := int(math.Ceil(max))
+	minInt := int(math.Floor(min))
+
+	return maxInt, minInt, nil
+}
+
+func ConvertMaxMinToString(max int, min int) (string, string, error) {
+	maxInt, minInt, err := ConvertMaxMinToInt(float64(max), float64(min))
+	if err != nil {
+		return "", "", err
+	}
+
+	maxString := strconv.Itoa(maxInt)
+	minString := strconv.Itoa(minInt)
+
+	return maxString, minString, nil
+}
 
 type KlinesServiceGetter interface {
 	NewKlinesService() KlinesService
