@@ -205,3 +205,23 @@ func CheckStopMarketOrders(r io.Reader) bool {
 	// Если не нашли ни одного ордера с типом "STOP_MARKET", то возвращаем false
 	return false
 }
+
+func CheckTakeProfitMarketOrders(r io.Reader) bool {
+	// Декодируем json в слайс структур
+	var orders []struct {
+		Type string `json:"type"`
+	}
+	if err := json.NewDecoder(r).Decode(&orders); err != nil {
+		log.Fatal(err)
+	}
+
+	// Ищем ордер с типом "TAKE_PROFIT_MARKET"
+	for _, order := range orders {
+		if order.Type == "TAKE_PROFIT_MARKET" {
+			return true // Если нашли, то возвращаем true
+		}
+	}
+
+	// Если не нашли ни одного ордера с типом "TAKE_PROFIT_MARKET", то возвращаем false
+	return false
+}
