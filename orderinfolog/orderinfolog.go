@@ -243,3 +243,32 @@ func CheckTakeProfitMarketOrders(r io.Reader) bool {
 	// Если не нашли ни одного ордера с типом "TAKE_PROFIT_MARKET", то возвращаем false
 	return false
 }
+
+func CheckLimitOrders(r io.Reader) bool {
+	// Декодируем json в слайс структур
+	var orders []struct {
+		Type string `json:"type"`
+	}
+
+	// Устанавливаем позицию чтения в начало
+	if seeker, ok := r.(io.Seeker); ok {
+		_, err := seeker.Seek(0, io.SeekStart)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	if err := json.NewDecoder(r).Decode(&orders); err != nil {
+		log.Fatal(err)
+	}
+
+	// Ищем ордер с типом "TAKE_PROFIT_MARKET"
+	for _, order := range orders {
+		if order.Type == "LIMIT" {
+			return true // Если нашли, то возвращаем true
+		}
+	}
+
+	// Если не нашли ни одного ордера с типом "TAKE_PROFIT_MARKET", то возвращаем false
+	return false
+}
