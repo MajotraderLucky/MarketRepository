@@ -43,7 +43,7 @@ func GetFiboLevelStartTrade() (string, error) {
 		log.Println("The ask price is not higher than any Fibonacci retracement level.")
 	}
 
-	threshold := 4
+	threshold := 5
 	isHigherCorridor, err := klinesdata.IsCorridorHigher(threshold)
 	if err != nil {
 		log.Printf("Error getting corridor: %v", err)
