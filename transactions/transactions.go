@@ -56,3 +56,19 @@ func CreatStopLossOrder(quantity string, stopPrice string) {
 	}
 	log.Println(stopOrder)
 }
+
+func CreatTakeProfitOrder(quantity string, takePrice string) {
+	apiKey, secretKey := GetAPIKeys()
+	futuresClient := binance.NewFuturesClient(apiKey, secretKey)
+
+	takeProfitOrder, err := futuresClient.NewCreateOrderService().
+		Symbol("BTCUSDT").Side(futures.SideTypeSell).
+		Type(futures.OrderTypeTakeProfitMarket).
+		TimeInForce(futures.TimeInForceTypeGTC).
+		Quantity(quantity).StopPrice(takePrice).Do(context.Background())
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	log.Println(takeProfitOrder)
+}
