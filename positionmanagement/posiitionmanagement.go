@@ -4,6 +4,7 @@ import (
 	"log"
 	"strconv"
 
+	"github.com/MajotraderLucky/MarketRepository/klinesdata"
 	"github.com/MajotraderLucky/MarketRepository/positionlog"
 )
 
@@ -38,4 +39,9 @@ func ConvertPositionDataToFloat64(positionAmt string, entryPrice string) (float6
 	log.Println("Entry Price float64: ", entryPriceFloat64)
 
 	return positionAmtFloat64, entryPriceFloat64, nil
+}
+
+func GetFiboLevelStringNow() {
+	levelStringNow, _ := klinesdata.IsAskPriceHigherThanLongFibRetLog()
+	log.Println("Fibo level string now: ", levelStringNow)
 }
