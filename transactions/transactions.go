@@ -72,3 +72,9 @@ func CreatTakeProfitOrder(quantity string, takePrice string) {
 	}
 	log.Println(takeProfitOrder)
 }
+
+func ProcessStopLossOrder(openOrder bool, stopLossValue string, level string) {
+	if openOrder {
+		CreatStopLossOrder(stopLossValue, level)
+	}
+}
