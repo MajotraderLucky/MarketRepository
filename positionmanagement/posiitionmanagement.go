@@ -1,6 +1,8 @@
 package positionmanagement
 
 import (
+	"errors"
+	"fmt"
 	"log"
 	"strconv"
 
@@ -48,33 +50,49 @@ func GetFiboLevelStringNow() (string, error) {
 	return levelStringNow, nil
 }
 
-func GetFiboLevelFloat64Now() (float64, error) {
+// -------------------------------------------------------------------------
+const (
+	LongFib236 = "LongFib236"
+	LongFib382 = "LongFib382"
+	LongFib500 = "LongFib500"
+	LongFib618 = "LongFib618"
+	LongFib786 = "LongFib786"
+)
+
+func GetFiboLevelFloat64Now() (float64, float64, float64, error) {
 	levelStringNow, _ := klinesdata.IsAskPriceHigherThanLongFibRetLog()
+
 	longFiboLevelsFloat64, err := klinesdata.GetFibonacciLevelsReturns()
 	if err != nil {
-		log.Fatalf("Error getting Fibonacci level: %v", err)
+		return 0, 0, 0, fmt.Errorf("error getting Fibonacci level: %v", err)
 	}
 
-	if levelStringNow == "LongFib236" {
-		return longFiboLevelsFloat64[0], nil
+	if len(longFiboLevelsFloat64) < 5 {
+		return 0, 0, 0, errors.New("not enough Fibonacci levels")
 	}
 
-	if levelStringNow == "LongFib382" {
-		return longFiboLevelsFloat64[1], nil
-	}
+	maxFloat64, minFloat64, err := klinesdata.FindMinMaxInfo()
 
-	if levelStringNow == "LongFib500" {
-		return longFiboLevelsFloat64[2], nil
+	switch levelStringNow {
+	case LongFib236:
+		return longFiboLevelsFloat64[0], longFiboLevelsFloat64[1],
+			maxFloat64, nil
+	case LongFib382:
+		return longFiboLevelsFloat64[1], longFiboLevelsFloat64[2],
+			longFiboLevelsFloat64[0], nil
+	case LongFib500:
+		return longFiboLevelsFloat64[2], longFiboLevelsFloat64[3],
+			longFiboLevelsFloat64[1], nil
+	case LongFib618:
+		return longFiboLevelsFloat64[3], longFiboLevelsFloat64[4],
+			longFiboLevelsFloat64[2], nil
+	case LongFib786:
+		return longFiboLevelsFloat64[4], minFloat64,
+			longFiboLevelsFloat64[3], nil
+	default:
+		log.Println("Price is not higher than any Fibonacci level")
+		return 0, minFloat64, 0, nil
 	}
-
-	if levelStringNow == "LongFib618" {
-		return longFiboLevelsFloat64[3], nil
-	}
-
-	if levelStringNow == "LongFib786" {
-		return longFiboLevelsFloat64[4], nil
-	}
-
-	log.Println("Price is not higher than any Fibonacci level")
-	return 0, nil
 }
+
+// ------------------------------------------------------------------------
