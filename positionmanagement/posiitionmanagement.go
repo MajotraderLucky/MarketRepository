@@ -41,7 +41,40 @@ func ConvertPositionDataToFloat64(positionAmt string, entryPrice string) (float6
 	return positionAmtFloat64, entryPriceFloat64, nil
 }
 
-func GetFiboLevelStringNow() {
+func GetFiboLevelStringNow() (string, error) {
 	levelStringNow, _ := klinesdata.IsAskPriceHigherThanLongFibRetLog()
 	log.Println("Fibo level string now: ", levelStringNow)
+
+	return levelStringNow, nil
+}
+
+func GetFiboLevelFloat64Now() (float64, error) {
+	levelStringNow, _ := klinesdata.IsAskPriceHigherThanLongFibRetLog()
+	longFiboLevelsFloat64, err := klinesdata.GetFibonacciLevelsReturns()
+	if err != nil {
+		log.Fatalf("Error getting Fibonacci level: %v", err)
+	}
+
+	if levelStringNow == "LongFib236" {
+		return longFiboLevelsFloat64[0], nil
+	}
+
+	if levelStringNow == "LongFib382" {
+		return longFiboLevelsFloat64[1], nil
+	}
+
+	if levelStringNow == "LongFib500" {
+		return longFiboLevelsFloat64[2], nil
+	}
+
+	if levelStringNow == "LongFib618" {
+		return longFiboLevelsFloat64[3], nil
+	}
+
+	if levelStringNow == "LongFib786" {
+		return longFiboLevelsFloat64[4], nil
+	}
+
+	log.Println("Price is not higher than any Fibonacci level")
+	return 0, nil
 }
