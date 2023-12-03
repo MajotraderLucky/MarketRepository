@@ -9,7 +9,7 @@ import (
 )
 
 func Hello() {
-	log.Println("Hello positionmanagement!")
+	log.Println("Use positionmanagement package")
 }
 
 func GetPositionData() (positionAmt string, entryPrice string, err error) {
