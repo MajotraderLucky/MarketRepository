@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"math"
 	"strconv"
 
 	"github.com/MajotraderLucky/MarketRepository/klinesdata"
@@ -96,3 +97,20 @@ func GetFiboLevelFloat64Now() (float64, float64, float64, error) {
 }
 
 // ------------------------------------------------------------------------
+
+func ConvertFiboLevelsMinMaxToInt() (maxInt64, minInt64, buyOrderInt64,
+	lossOrderInt64, profitOrderInt64 int64, err error) {
+	maxFloat64, minFloat64, err := klinesdata.FindMinMaxInfo()
+	if err != nil {
+		return 0, 0, 0, 0, 0, err
+	}
+	maxInt64 = int64(math.Round(maxFloat64))
+	minInt64 = int64(math.Round(minFloat64))
+
+	buyOrderFloat64, lossOrderFloat64, profitOrderFloat64, err := GetFiboLevelFloat64Now()
+	buyOrderInt64 = int64(math.Round(buyOrderFloat64))
+	lossOrderInt64 = int64(math.Round(lossOrderFloat64))
+	profitOrderInt64 = int64(math.Round(profitOrderFloat64))
+
+	return maxInt64, minInt64, buyOrderInt64, lossOrderInt64, profitOrderInt64, nil
+}
