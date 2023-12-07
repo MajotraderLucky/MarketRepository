@@ -161,14 +161,22 @@ func GetStopLossOrderPrice(r io.Reader) (string, int64, error) {
 }
 
 func GetStopOrderPriceAndId() (string, int64, error) {
+	// Открываем файл
 	file, err := os.Open("logs/orders.json")
 	if err != nil {
-		log.Fatal(err)
+		// Если произошла ошибка при открытии файла, возвращаем ошибку
+		return "", 0, err
 	}
+	defer file.Close()
+
+	// Получаем данные из файла с использованием другой функции (GetStopLossOrderPrice)
 	stopOrderPriceFromJsonFile, stopOrderIdFromJsonFile, err := GetStopLossOrderPrice(file)
 
 	if err != nil {
-		log.Fatal(err)
+		// Если произошла ошибка при получении данных из файла, возвращаем ошибку
+		return "", 0, err
 	}
+
+	// Возвращаем полученные данные
 	return stopOrderPriceFromJsonFile, stopOrderIdFromJsonFile, nil
 }
