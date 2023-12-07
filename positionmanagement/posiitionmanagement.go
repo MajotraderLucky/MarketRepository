@@ -159,3 +159,16 @@ func GetStopLossOrderPrice(r io.Reader) (string, int64, error) {
 	// то возвращаем ошибку
 	return "", 0, errors.New("No stop market order detected")
 }
+
+func GetStopOrderPriceAndId() (string, int64, error) {
+	file, err := os.Open("logs/orders.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+	stopOrderPriceFromJsonFile, stopOrderIdFromJsonFile, err := GetStopLossOrderPrice(file)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	return stopOrderPriceFromJsonFile, stopOrderIdFromJsonFile, nil
+}
