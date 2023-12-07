@@ -1,10 +1,13 @@
 package positionmanagement
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"log"
 	"math"
+	"os"
 	"strconv"
 
 	"github.com/MajotraderLucky/MarketRepository/klinesdata"
@@ -113,4 +116,46 @@ func ConvertFiboLevelsMinMaxToInt() (maxInt64, minInt64, buyOrderInt64,
 	profitOrderInt64 = int64(math.Round(profitOrderFloat64))
 
 	return maxInt64, minInt64, buyOrderInt64, lossOrderInt64, profitOrderInt64, nil
+}
+
+func GetStopLossOrderPrice(r io.Reader) (string, string, error) {
+	file, err := os.Open("logs/orders.json")
+	if err != nil {
+		return "", "", err
+	}
+	defer file.Close()
+
+	var orders []struct {
+		StopPrice string `json:"stopPrice"`
+		OrderId   string `json:"orderId"`
+	}
+
+	// Читаем данные из файла
+	if err := json.NewDecoder(file).Decode(&orders); err != nil {
+		return "", "", err
+	}
+
+	// Если r является io.Seeker, устанавливаем позицию чтения в начало
+	if seeker, ok := r.(io.Seeker); ok {
+		_, err := seeker.Seek(0, io.SeekStart)
+		if err != nil {
+			return "", "", err
+		}
+	}
+
+	// Читаем данные из r
+	if err := json.NewDecoder(r).Decode(&orders); err != nil {
+		return "", "", err
+	}
+
+	// Ищем ордер с типом "StopPrice" и "OrderId"
+	for _, order := range orders {
+		if order.StopPrice != "" && order.OrderId != "" {
+			return order.StopPrice, order.OrderId, nil
+		}
+	}
+
+	// Если не нашли ни одного ордера с типом "StopPrice" и "OrderId",
+	// то возвращаем ошибку
+	return "", "", errors.New("No stop market order detected")
 }
