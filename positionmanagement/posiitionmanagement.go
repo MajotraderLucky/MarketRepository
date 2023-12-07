@@ -118,44 +118,44 @@ func ConvertFiboLevelsMinMaxToInt() (maxInt64, minInt64, buyOrderInt64,
 	return maxInt64, minInt64, buyOrderInt64, lossOrderInt64, profitOrderInt64, nil
 }
 
-func GetStopLossOrderPrice(r io.Reader) (string, string, error) {
+func GetStopLossOrderPrice(r io.Reader) (string, int64, error) {
 	file, err := os.Open("logs/orders.json")
 	if err != nil {
-		return "", "", err
+		return "", 0, err
 	}
 	defer file.Close()
 
 	var orders []struct {
 		StopPrice string `json:"stopPrice"`
-		OrderId   string `json:"orderId"`
+		OrderId   int64  `json:"orderId"`
 	}
 
 	// Читаем данные из файла
 	if err := json.NewDecoder(file).Decode(&orders); err != nil {
-		return "", "", err
+		return "", 0, err
 	}
 
 	// Если r является io.Seeker, устанавливаем позицию чтения в начало
 	if seeker, ok := r.(io.Seeker); ok {
 		_, err := seeker.Seek(0, io.SeekStart)
 		if err != nil {
-			return "", "", err
+			return "", 0, err
 		}
 	}
 
 	// Читаем данные из r
 	if err := json.NewDecoder(r).Decode(&orders); err != nil {
-		return "", "", err
+		return "", 0, err
 	}
 
 	// Ищем ордер с типом "StopPrice" и "OrderId"
 	for _, order := range orders {
-		if order.StopPrice != "" && order.OrderId != "" {
+		if order.StopPrice != "" && order.OrderId != 0 {
 			return order.StopPrice, order.OrderId, nil
 		}
 	}
 
 	// Если не нашли ни одного ордера с типом "StopPrice" и "OrderId",
 	// то возвращаем ошибку
-	return "", "", errors.New("No stop market order detected")
+	return "", 0, errors.New("No stop market order detected")
 }
