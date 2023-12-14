@@ -286,7 +286,7 @@ func CreateOrdersConfigFile() {
 	// Проверка существования директории "configurations"
 	if _, err := os.Stat(configurationsDir); os.IsNotExist(err) {
 		// Создание директории "configurations" с правами записи
-		err := os.Mkdir(configurationsDir, 0700)
+		err := os.Mkdir(configurationsDir, 0600)
 		if err != nil {
 			log.Fatal("Не удалось создать директорию 'configurations':", err)
 		}
