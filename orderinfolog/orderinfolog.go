@@ -285,8 +285,8 @@ func СheckAndCreateOrdersConfigFile() {
 		}
 		defer file.Close()
 
-		fmt.Println("Файл ordersconfig.json успешно создан.")
+		log.Println("Файл ordersconfig.json успешно создан.")
 	} else {
-		fmt.Println("Файл ordersconfig.json уже существует.")
+		log.Println("Файл ordersconfig.json уже существует.")
 	}
 }
