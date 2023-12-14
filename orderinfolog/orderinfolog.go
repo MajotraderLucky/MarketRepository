@@ -3,6 +3,7 @@ package orderinfolog
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -271,4 +272,21 @@ func CheckLimitOrders(r io.Reader) bool {
 
 	// Если не нашли ни одного ордера с типом "TAKE_PROFIT_MARKET", то возвращаем false
 	return false
+}
+
+func СheckAndCreateOrdersConfigFile() {
+	// Проверяем наличие файла
+	if _, err := os.Stat("ordersconfig.json"); os.IsNotExist(err) {
+		// Если файл не существует, создаем его
+		file, err := os.Create("ordersconfig.json")
+		if err != nil {
+			fmt.Println("Не удалось создать файл:", err)
+			return
+		}
+		defer file.Close()
+
+		fmt.Println("Файл ordersconfig.json успешно создан.")
+	} else {
+		fmt.Println("Файл ordersconfig.json уже существует.")
+	}
 }
