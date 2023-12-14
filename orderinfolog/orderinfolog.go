@@ -3,7 +3,6 @@ package orderinfolog
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -280,7 +279,7 @@ func СheckAndCreateOrdersConfigFile() {
 		// Если файл не существует, создаем его
 		file, err := os.Create("ordersconfig.json")
 		if err != nil {
-			fmt.Println("Не удалось создать файл:", err)
+			log.Println("Не удалось создать файл:", err)
 			return
 		}
 		defer file.Close()
