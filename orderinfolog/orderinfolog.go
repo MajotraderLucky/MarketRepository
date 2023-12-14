@@ -273,19 +273,43 @@ func CheckLimitOrders(r io.Reader) bool {
 	return false
 }
 
-func СheckAndCreateOrdersConfigFile() {
-	// Проверяем наличие файла
-	if _, err := os.Stat("ordersconfig.json"); os.IsNotExist(err) {
-		// Если файл не существует, создаем его
-		file, err := os.Create("ordersconfig.json")
+func CreateOrdersConfigFile() {
+	// Получение текущей директории
+	currentDir, err := os.Getwd()
+	if err != nil {
+		log.Fatal("Ошибка при получении текущей директории:", err)
+	}
+
+	// Полный путь к директории "configurations"
+	configurationsDir := currentDir + "/configurations"
+
+	// Проверка существования директории "configurations"
+	if _, err := os.Stat(configurationsDir); os.IsNotExist(err) {
+		// Создание директории "configurations" с правами записи
+		err := os.Mkdir(configurationsDir, 0700)
 		if err != nil {
-			log.Println("Не удалось создать файл:", err)
-			return
+			log.Fatal("Не удалось создать директорию 'configurations':", err)
+		}
+	}
+
+	// Полный путь к файлу "ordersconfig.json"
+	ordersConfigFile := configurationsDir + "/ordersconfig.json"
+
+	// Проверка существования файла "ordersconfig.json"
+	if _, err := os.Stat(ordersConfigFile); os.IsNotExist(err) {
+		// Создание файла "ordersconfig.json" с правами записи и чтения
+		file, err := os.OpenFile(ordersConfigFile, os.O_RDWR|os.O_CREATE, 0600)
+		if err != nil {
+			log.Fatal("Не удалось создать файл 'ordersconfig.json':", err)
 		}
 		defer file.Close()
 
-		log.Println("Файл ordersconfig.json успешно создан.")
-	} else {
-		log.Println("Файл ordersconfig.json уже существует.")
+		// Запись пустого JSON объекта в файл
+		_, err = file.Write([]byte("{}"))
+		if err != nil {
+			log.Fatal("Не удалось записать данные в файл 'ordersconfig.json':", err)
+		}
 	}
+
+	log.Println("Файл ordersconfig.json успешно создан")
 }
