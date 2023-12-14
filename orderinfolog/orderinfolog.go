@@ -313,3 +313,74 @@ func CreateOrdersConfigFile() {
 
 	log.Println("Файл ordersconfig.json успешно создан")
 }
+
+func CreateOrdersConfigFileAndWriteData(takeProfitQuantity string, takeProfitPrice string) {
+	// Получение текущей директории
+	currentDir, err := os.Getwd()
+	if err != nil {
+		log.Fatal("Ошибка при получении текущей директории:", err)
+	}
+
+	// Полный путь к директории "configurations"
+	configurationsDir := currentDir + "/configurations"
+
+	// Проверка существования директории "configurations"
+	if _, err := os.Stat(configurationsDir); os.IsNotExist(err) {
+		// Создание директории "configurations" с правами записи
+		err := os.Mkdir(configurationsDir, 0600)
+		if err != nil {
+			log.Fatal("Не удалось создать директорию 'configurations':", err)
+		}
+	}
+
+	// Полный путь к файлу "ordersconfig.json"
+	ordersConfigFile := configurationsDir + "/ordersconfig.json"
+
+	// Проверка существования файла "ordersconfig.json"
+	if _, err := os.Stat(ordersConfigFile); os.IsNotExist(err) {
+		// Создание файла "ordersconfig.json" с правами записи и чтения
+		file, err := os.OpenFile(ordersConfigFile, os.O_RDWR|os.O_CREATE, 0600)
+		if err != nil {
+			log.Fatal("Не удалось создать файл 'ordersconfig.json':", err)
+		}
+		defer file.Close()
+
+		// Запись пустого JSON объекта в файл
+		_, err = file.Write([]byte("{}"))
+		if err != nil {
+			log.Fatal("Не удалось записать данные в файл 'ordersconfig.json':", err)
+		}
+	}
+
+	// Открытие файла "ordersconfig.json" для чтения и записи
+	file, err := os.OpenFile(ordersConfigFile, os.O_RDWR, 0600)
+	if err != nil {
+		log.Fatal("Не удалось открыть файл 'ordersconfig.json':", err)
+	}
+	defer file.Close()
+
+	// Чтение данных из файла
+	data := make(map[string]interface{})
+	err = json.NewDecoder(file).Decode(&data)
+	if err != nil {
+		log.Fatal("Не удалось прочитать данные из файла 'ordersconfig.json':", err)
+	}
+
+	// Запись переменных в данные
+	data["takeProfitQuantity"] = takeProfitQuantity
+	data["takeProfitPrice"] = takeProfitPrice
+
+	// Перемещение указателя файла в начало
+	_, err = file.Seek(0, 0)
+	if err != nil {
+		log.Fatal("Не удалось переместить указатель файла 'ordersconfig.json':", err)
+	}
+
+	// Запись данных в файл
+	err = json.NewEncoder(file).Encode(data)
+	if err != nil {
+		log.Fatal("Не удалось записать данные в файл 'ordersconfig.json':", err)
+	}
+
+	log.Println("Переменные успешно записаны в файл ordersconfig.json")
+}
