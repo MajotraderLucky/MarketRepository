@@ -349,3 +349,26 @@ func CreateOrdersConfigFileAndWriteData(takeProfitQuantity string, takeProfitPri
 
 	log.Println("Переменные успешно записаны в файл ordersconfig.json")
 }
+
+type OrdersConfig struct {
+	TakeProfitQuantity string `json:"takeProfitQuantity"`
+	TakeProfitPrice    string `json:"takeProfitPrice"`
+}
+
+func ReadOrdersConfig() (string, string, error) {
+	// Открытие файла "ordersconfig.json"
+	file, err := os.Open("configurations/ordersconfig.json")
+	if err != nil {
+		return "", "", err
+	}
+	defer file.Close()
+
+	// Чтение данных из файла
+	var config OrdersConfig
+	err = json.NewDecoder(file).Decode(&config)
+	if err != nil {
+		return "", "", err
+	}
+
+	return config.TakeProfitQuantity, config.TakeProfitPrice, nil
+}
