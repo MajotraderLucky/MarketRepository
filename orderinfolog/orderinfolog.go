@@ -359,6 +359,7 @@ func ReadOrdersConfig(r io.Reader) (string, string, error) {
 	// Открытие файла "ordersconfig.json"
 	file, err := os.Open("configurations/ordersconfig.json")
 	if err != nil {
+		log.Println("Файл конфигурации не найден.")
 		return "", "", err
 	}
 	defer file.Close()
@@ -375,6 +376,7 @@ func ReadOrdersConfig(r io.Reader) (string, string, error) {
 	var config OrdersConfig
 	err = json.NewDecoder(file).Decode(&config)
 	if err != nil {
+		log.Println("Ошибка при чтении файла конфигурации.")
 		return "", "", err
 	}
 
