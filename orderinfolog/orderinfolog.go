@@ -355,13 +355,21 @@ type OrdersConfig struct {
 	TakeProfitPrice    string `json:"takeProfitPrice"`
 }
 
-func ReadOrdersConfig() (string, string, error) {
+func ReadOrdersConfig(r io.Reader) (string, string, error) {
 	// Открытие файла "ordersconfig.json"
 	file, err := os.Open("configurations/ordersconfig.json")
 	if err != nil {
 		return "", "", err
 	}
 	defer file.Close()
+
+	// Устанавливаем позицию чтения в начало
+	if seeker, ok := r.(io.Seeker); ok {
+		_, err := seeker.Seek(0, io.SeekStart)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 
 	// Чтение данных из файла
 	var config OrdersConfig
