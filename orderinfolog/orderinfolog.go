@@ -286,7 +286,7 @@ func CreateOrdersConfigFileAndWriteData(takeProfitQuantity string, takeProfitPri
 	// Проверка существования директории "configurations"
 	if _, err := os.Stat(configurationsDir); os.IsNotExist(err) {
 		// Создание директории "configurations" с правами записи
-		err := os.Mkdir(configurationsDir, 0600)
+		err := os.Mkdir(configurationsDir, 0644)
 		if err != nil {
 			log.Fatal("Не удалось создать директорию 'configurations':", err)
 		}
@@ -355,28 +355,18 @@ type OrdersConfig struct {
 	TakeProfitPrice    string `json:"takeProfitPrice"`
 }
 
-func ReadOrdersConfig(r io.Reader) (string, string, error) {
+func ReadOrdersConfig() (string, string, error) {
 	// Открытие файла "ordersconfig.json"
 	file, err := os.Open("configurations/ordersconfig.json")
 	if err != nil {
-		log.Println("Файл конфигурации не найден.")
 		return "", "", err
 	}
 	defer file.Close()
-
-	// Устанавливаем позицию чтения в начало
-	if seeker, ok := r.(io.Seeker); ok {
-		_, err := seeker.Seek(0, io.SeekStart)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
 
 	// Чтение данных из файла
 	var config OrdersConfig
 	err = json.NewDecoder(file).Decode(&config)
 	if err != nil {
-		log.Println("Ошибка при чтении файла конфигурации.")
 		return "", "", err
 	}
 
