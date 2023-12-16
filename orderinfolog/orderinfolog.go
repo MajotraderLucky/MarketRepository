@@ -286,7 +286,7 @@ func CreateOrdersConfigFileAndWriteData(takeProfitQuantity string, takeProfitPri
 	// Проверка существования директории "configurations"
 	if _, err := os.Stat(configurationsDir); os.IsNotExist(err) {
 		// Создание директории "configurations" с правами записи
-		err := os.Mkdir(configurationsDir, 0644)
+		err := os.Mkdir(configurationsDir, 0664)
 		if err != nil {
 			log.Fatal("Не удалось создать директорию 'configurations':", err)
 		}
@@ -298,7 +298,7 @@ func CreateOrdersConfigFileAndWriteData(takeProfitQuantity string, takeProfitPri
 	// Проверка существования файла "ordersconfig.json"
 	if _, err := os.Stat(ordersConfigFile); os.IsNotExist(err) {
 		// Создание файла "ordersconfig.json" с правами записи и чтения
-		file, err := os.OpenFile(ordersConfigFile, os.O_RDWR|os.O_CREATE, 0644)
+		file, err := os.OpenFile(ordersConfigFile, os.O_RDWR|os.O_CREATE, 0664)
 		if err != nil {
 			log.Fatal("Не удалось создать файл 'ordersconfig.json':", err)
 		}
@@ -312,7 +312,7 @@ func CreateOrdersConfigFileAndWriteData(takeProfitQuantity string, takeProfitPri
 	}
 
 	// Открытие файла "ordersconfig.json" для чтения и записи
-	file, err := os.OpenFile(ordersConfigFile, os.O_RDWR, 0644)
+	file, err := os.OpenFile(ordersConfigFile, os.O_RDWR, 0664)
 	if err != nil {
 		log.Fatal("Не удалось открыть файл 'ordersconfig.json':", err)
 	}
